@@ -15,8 +15,7 @@ body{
 }
 
 
-.calculator{
-  position: relative;
+.calculator{ 
   width: 550px;
   background-color: red;
   display: flex;
@@ -25,6 +24,7 @@ body{
   font-size: 70px;
 }
 .display{
+  height: 80px;
   width: 100%;
   display: flex;
   background-color: aqua;

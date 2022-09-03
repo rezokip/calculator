@@ -1,5 +1,5 @@
 function add (a,b){
- return a+b
+  return a + b 
 }
 
 function substract (a,b){
@@ -35,7 +35,8 @@ function operate(operator,a,b){
 }
 
 let displayCont=document.querySelector('.display p')
-console.log(displayCont.textContent)
+
+
 
 let clearCont=document.querySelector('.clear')
 let divideCont=document.querySelector('.divide')
@@ -54,19 +55,33 @@ let addCont=document.querySelector('.add')
 let num7Cont=document.querySelector('.seven')
 let num8Cont=document.querySelector('.eight')
 let num9Cont=document.querySelector('.nine')
-let equalCont=document.querySelector('.equal')
+let operateCont=document.querySelector('.operate')
  
 let num0Cont=document.querySelector('.zero')
 let commaCont=document.querySelector('.comma')
 
-let displayValue
-
+let displayValue 
+let newValue = 0
+let operator
+let endValue = 0
 
 function showAtDisplay (){
-  displayValue =  this.textContent
-  displayCont.textContent  +=  displayValue 
+   displayCont.textContent+=  this.textContent
+   displayValue = Number(displayCont.textContent)
+   console.log(displayValue)
+   return displayValue  
   }
 
+function clearFromDisplay (){
+  displayCont.textContent = ""
+  //displayValue 
+  newValue = 0;
+  endValue = 0;
+  return displayValue 
+}
+
+
+clearCont.addEventListener('click', clearFromDisplay)
 num1Cont.addEventListener('click', showAtDisplay)
 num2Cont.addEventListener('click', showAtDisplay)
 num3Cont.addEventListener('click', showAtDisplay)
@@ -78,4 +93,32 @@ num8Cont.addEventListener('click', showAtDisplay)
 num9Cont.addEventListener('click', showAtDisplay)
 num0Cont.addEventListener('click', showAtDisplay)
 commaCont.addEventListener('click', showAtDisplay)
+
+
+
+addCont.addEventListener('click', function(){
+  operator = '+'
+  console.log(operator)
+  newValue = displayValue
+  console.log(newValue)
+  displayValue = 0
+  console.log(displayValue)
+  endValue += newValue
+  console.log(endValue)
+  //newValue+=displayValue
+  displayCont.textContent = ""
+  //displayValue 
+  return endValue
+ 
+})
+
+
+operateCont.addEventListener('click', function(){
+  operate(operator, endValue, displayValue)
+    console.log(operator)
+    displayCont.textContent = result
+    console.log(result)
+  //displayCont.textContent = newValue
+  //console.log(newValue)
+})
 
