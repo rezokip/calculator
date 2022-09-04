@@ -1,8 +1,7 @@
-let displayValue = ""
-let newValue = ""
-let operator
 
 
+
+// create mathamatical Functions
 function add (a,b){
   return a + b 
 }
@@ -39,10 +38,16 @@ function operate(operator,a,b){
   return result
 }
 
+// create variables
+let displayValue = ""
+let newValue = ""
+let operator
+let clickedOperate
+
+
+// js variables for html elements
 
 let displayCont=document.querySelector('.display p')
-
-
 
 let clearCont=document.querySelector('.clear')
 let divideCont=document.querySelector('.divide')
@@ -68,48 +73,40 @@ let commaCont=document.querySelector('.comma')
 
 
 function showAtDisplay (){
-  console.log('displayvalue',displayValue)
-  console.log(typeof displayValue)
+//  console.log('displayvalue',displayValue)
+//  console.log(typeof displayValue)
+//  console.log(clickedOperate)
   
-  if(displayValue !=""){
-    displayCont.textContent += this.textContent
-    console.log('displayCont', displayCont.textContent)
-    displayValue = displayCont.textContent
+  if(clickedOperate ===true){
+    displayValue = ""
+    newValue = ""
   }
 
-  
-  
+
   if(displayValue===""){
+    
+    
     displayCont.textContent = this.textContent
     console.log('displayCont', displayCont.textContent)
     displayValue = displayCont.textContent
   }
+    else if (displayValue !="" ){
+    displayCont.textContent += this.textContent
+    console.log('displayCont', displayCont.textContent)
+    displayValue = displayCont.textContent
+  }
   
- 
-
-
-
-  console.log('newvalue',newValue)
+  clickedOperate = false
+    console.log('newvalue',newValue)
 
   console.log('displayvalue',displayValue)
   console.log(typeof displayValue)
-
- 
-    
-   
-  
-  
-
-  
-   
-  
-  
-
   }
 
 function clearFromDisplay (){
   displayCont.textContent = ""
   newValue = "";
+  displayValue = "";
   
   
  
@@ -121,9 +118,12 @@ function saveValuesAndOperate () {
   if(displayValue===""){
     return
   }
-
+  if(clickedOperate ===true){
+    displayValue = newValue
+    newValue = ""
+  }
   // clicking the first time, there is no new value, so new value becomes displayValue
-  if(newValue===""){
+  if(newValue==="" ){
    newValue = Number(displayValue) 
    displayCont.textContent = newValue
   }
@@ -136,12 +136,13 @@ function saveValuesAndOperate () {
   }
 
   // saving operator and clearing the displayValue at last place to not have issues with the if statements
-    // 
+    // clearing displayValue for the If statements of the showAtDisplay function (Check if displayValue exist, to show or add textcontent)
   operator = this.textContent
   console.log(operator)
   console.log('newValue', newValue)
   displayValue = ""
   console.log('displayvalue', displayValue)
+  clickedOperate = false
 
 }
 
@@ -189,12 +190,14 @@ substractCont.addEventListener('click', saveValuesAndOperate)
 */
 
 operateCont.addEventListener('click', function(){
- 
+  clickedOperate = true
+  console.log(clickedOperate)
 
   operate(operator, newValue, Number(displayValue))
     console.log(operator)
    
     displayCont.textContent = result
+   
     newValue = result
     console.log(result)
     
@@ -202,6 +205,7 @@ operateCont.addEventListener('click', function(){
     
     console.log('displayvalue',displayValue)    
     console.log('newValue', newValue)
+    
   //displayCont.textContent = newValue
   //console.log(newValue)
 })
