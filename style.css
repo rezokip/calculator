@@ -1,6 +1,7 @@
 *{
   margin:0;
   padding:0;
+  
 }
 *,
 *::after,
@@ -16,18 +17,21 @@ body{
 
 
 .calculator{ 
-  width: 550px;
-  background-color: red;
+  width: 400px;
+  padding: 2px;
+  border-radius: 10px;
+  background-color: grey;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 70px;
 }
 .display{
+  border-radius: 10px;
   height: 80px;
   width: 100%;
   display: flex;
-  background-color: aqua;
+  background-color: lightgrey;
 }
 .display p{
   margin-left: auto;
@@ -37,5 +41,37 @@ body{
 .buttons{
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;  
+
+}
+.clear{
+  width: 191%;
+  z-index: 1;
+}
+
+.operate{
+  width: 196%;
+
+}
+
+.del{
+  font-size: 30px;
+  line-height: 80px;
+}
+
+
+.buttons div{
+  text-align: center;
+  background-color: rgb(155, 67, 67);
+  border: solid 0.1px black;
+  border-radius: 10px;
+  margin: 2px;
+  
+}
+
+.buttons div:hover{
+  cursor: pointer;
+  background-color: lightgray;
+  color: rgb(155, 67, 67);
+  transition: 0.2s;
 }

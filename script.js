@@ -1,8 +1,7 @@
 
-
-
-// create mathamatical Functions
 function add (a,b){
+// create mathamatical Functions
+
   return a + b 
 }
 
@@ -19,34 +18,37 @@ function divide (a,b){
 }
 
 
+
 function operate(operator,a,b){
+// function to operate based on operator
+
   if(operator==='+'){
     result=add(a,b)
   }
-  
   else if(operator==='-'){
     result=substract(a,b)
   }
-    
   else if(operator==='x'){
     result=multiply(a,b)
-  }
-    
+  }    
   else if(operator==='÷'){
      result=divide(a,b)
   }
   return result
 }
 
+
 // create variables
 let displayValue = ""
 let newValue = ""
 let operator
-let clickedOperate
+let clickedCalculate
+let clickedComma
+let result 
 
 
-// js variables for html elements
 
+// assign js variables to html elements
 let displayCont=document.querySelector('.display p')
 
 let clearCont=document.querySelector('.clear')
@@ -66,69 +68,74 @@ let addCont=document.querySelector('.add')
 let num7Cont=document.querySelector('.seven')
 let num8Cont=document.querySelector('.eight')
 let num9Cont=document.querySelector('.nine')
-let operateCont=document.querySelector('.operate')
+let calculateCont=document.querySelector('.operate')
  
 let num0Cont=document.querySelector('.zero')
 let commaCont=document.querySelector('.comma')
 
 
+
 function showAtDisplay (){
-//  console.log('displayvalue',displayValue)
-//  console.log(typeof displayValue)
-//  console.log(clickedOperate)
-  
-  if(clickedOperate ===true){
+// Function to show the nums and comma button  
+
+  // resetting values if already operated
+  if(clickedCalculate ===true){
     displayValue = ""
     newValue = ""
   }
 
-
-  if(displayValue===""){
-    
-    
+  // when starting without a displayValue (done operation or assigned operator) the value should be the clicked button
+  if(displayValue===""){      
     displayCont.textContent = this.textContent
     console.log('displayCont', displayCont.textContent)
     displayValue = displayCont.textContent
   }
+
+  // when already clicked a button, add the value of the next button to the display
     else if (displayValue !="" ){
     displayCont.textContent += this.textContent
     console.log('displayCont', displayCont.textContent)
     displayValue = displayCont.textContent
   }
   
-  clickedOperate = false
-    console.log('newvalue',newValue)
-
-  console.log('displayvalue',displayValue)
-  console.log(typeof displayValue)
+  // reset the clickedCalculate var
+    clickedCalculate = false  
   }
 
+
+
 function clearFromDisplay (){
+// function for the clear button    
   displayCont.textContent = ""
   newValue = "";
-  displayValue = "";
-  
-  
- 
+  displayValue = ""; 
+  result = ""
+  clickedCalculate = false
 }
 
 
+
 function saveValuesAndOperate () {
-  // if i dont have a display value (cleared, started new or clicked already an operator...) then do nothing (..dont save or operate)
+// function for the operator (+,-,*,/)  
+
+  // if dont have a displayvalue (cleared, started new or clicked already an operator...) then do nothing (..dont save or operate)
   if(displayValue===""){
     return
   }
-  if(clickedOperate ===true){
+
+  // after clicking the calculate button, displayValue needs to be the newvalue and newValue reset for the next if statement to work
+  if(clickedCalculate ===true){
     displayValue = newValue
     newValue = ""
   }
-  // clicking the first time, there is no new value, so new value becomes displayValue
+
+  // clicking the first time or when there is no new value (reset or calculated), the new value becomes displayValue
   if(newValue==="" ){
    newValue = Number(displayValue) 
    displayCont.textContent = newValue
   }
 
-  // clicking after i have a new value, i can operate..
+  // clicking after there is a new value, i can operate..
   else {
     operate(operator, newValue, Number(displayValue))
     newValue=result
@@ -137,14 +144,14 @@ function saveValuesAndOperate () {
 
   // saving operator and clearing the displayValue at last place to not have issues with the if statements
     // clearing displayValue for the If statements of the showAtDisplay function (Check if displayValue exist, to show or add textcontent)
+    // reseting the clickedCalculate
   operator = this.textContent
-  console.log(operator)
-  console.log('newValue', newValue)
   displayValue = ""
-  console.log('displayvalue', displayValue)
-  clickedOperate = false
-
+  clickedCalculate = false
 }
+
+
+// assigning the functions to the DOM variables  
 
 clearCont.addEventListener('click', clearFromDisplay)
 num1Cont.addEventListener('click', showAtDisplay)
@@ -159,8 +166,6 @@ num9Cont.addEventListener('click', showAtDisplay)
 num0Cont.addEventListener('click', showAtDisplay)
 commaCont.addEventListener('click', showAtDisplay)
 
-let result = ""
-
 divideCont.addEventListener('click', saveValuesAndOperate)
 multiplyCont.addEventListener('click', saveValuesAndOperate)
 addCont.addEventListener('click', saveValuesAndOperate)
@@ -169,44 +174,15 @@ substractCont.addEventListener('click', saveValuesAndOperate)
 
 
 
+calculateCont.addEventListener('click', function(){
+// After calculate gets clicked assign the clickedCalculat to true (for further functions to know it got clicked)
+// operate and change the result to new Value, so after pressing multiple times it operates further
 
-
-/*function(){
-
-  operator = this.textContent
-  console.log(operator)
-  newValue = displayValue
-  console.log(newValue)
-  displayValue = 0
-  console.log(displayValue)
-  endValue += newValue
-  console.log(endValue)
-  //newValue+=displayValue
-  displayCont.textContent = ""
-  //displayValue 
-  return endValue
- 
-})
-*/
-
-operateCont.addEventListener('click', function(){
-  clickedOperate = true
-  console.log(clickedOperate)
-
-  operate(operator, newValue, Number(displayValue))
-    console.log(operator)
-   
-    displayCont.textContent = result
-   
-    newValue = result
-    console.log(result)
-    
-
-    
-    console.log('displayvalue',displayValue)    
-    console.log('newValue', newValue)
-    
-  //displayCont.textContent = newValue
-  //console.log(newValue)
+  clickedCalculate = true
+  operate(operator, Number(newValue), Number(displayValue)) 
+    displayCont.textContent = result  
+    console.log(displayCont.textContent)
+    newValue = result  
+    console.log(newValue)
 })
 
